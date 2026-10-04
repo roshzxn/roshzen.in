@@ -12,3 +12,5 @@ __pycache__/
 
 # Local user configs
 .config/
+
+node_modules/
