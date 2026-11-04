@@ -10,7 +10,7 @@ import { soundFX } from './sound'
 import TerminalHistory from './TerminalHistory'
 import TerminalInput from './TerminalInput'
 import { terminalThemes, themeNames } from './theme'
-import { applyPortfolioTheme } from '../../utils/portfolioTheme'
+import { applyPortfolioTheme, getStoredTheme } from '../../utils/portfolioTheme'
 import './terminal.css'
 
 const createId = () => `${Date.now()}-${Math.random().toString(16).slice(2)}`
@@ -116,14 +116,10 @@ function Terminal() {
   })
   const [historyIndex, setHistoryIndex] = useState(null)
 
-  // Theme persistence - Requirement #19
+  // Theme persistence - Universal Portfolio Synchronization
   const [themeName, setThemeName] = useState(() => {
     if (typeof window === 'undefined') return 'default'
-    try {
-      return localStorage.getItem('roshzen_term_theme') || 'default'
-    } catch {
-      return 'default'
-    }
+    return getStoredTheme()
   })
 
   // Sound effects & boot sequence
@@ -177,15 +173,21 @@ function Terminal() {
   const handleSetTheme = (newTheme) => {
     setThemeName(newTheme)
     applyPortfolioTheme(newTheme)
-    try {
-      localStorage.setItem('roshzen_term_theme', newTheme)
-    } catch {
-      // Ignore
-    }
   }
 
   useEffect(() => {
     applyPortfolioTheme(themeName)
+  }, [themeName])
+
+  useEffect(() => {
+    const handleSync = (e) => {
+      const externalTheme = e.detail?.theme
+      if (externalTheme && externalTheme !== themeName) {
+        setThemeName(externalTheme)
+      }
+    }
+    window.addEventListener('portfolio-theme-change', handleSync)
+    return () => window.removeEventListener('portfolio-theme-change', handleSync)
   }, [themeName])
 
   const showToast = (msg) => {

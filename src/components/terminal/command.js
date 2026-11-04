@@ -85,7 +85,7 @@ const commandList = [
   'neofetch', 'coffee', 'joke', 'quote', 'matrix', 'cmatrix', 'stop', 'fullscreen', 'banner',
   'welcome', 'portfolio', 'status', 'visitors', 'github stats', 'ask', 'roadmap',
   'timeline', 'certificates', 'clock', 'timer', 'weather', 'music', 'playlist', 'sudo', 'hack',
-  'snake', 'pong', 'tictactoe', '2048', 'games', 'play', 'npm', 'git', 'docker', 'top', 'ps', 'kill',
+  'snake', 'pong', 'tictactoe', '2048', 'typing', 'type', 'typer', 'typespeed', 'games', 'play', 'npm', 'git', 'docker', 'top', 'ps', 'kill',
   'ping', 'curl', 'wget', 'history', 'download', 'qr', 'open', 'toast', 'sound', 'boot',
   'stats', 'analytics', 'blogs', 'blog', 'devmode', 'uptime', 'date', 'time', 'uname',
   'sysinfo', 'calc', 'echo', 'whois', 'hire', 'freelance', 'credits', 'thanks', 'motd', 'version',
@@ -198,7 +198,7 @@ export const getWelcomeEntry = () =>
   makeOutput('welcome', [
     '⚡ Welcome to RoshZen Hackerspace Developer Terminal v4.2',
     'Type "help" to list all 40+ commands.',
-    'Try: "quiz", "status", "neofetch", "projects", "skill react", "ask Tell me about Arun", "theme cyber", or "tictactoe".',
+    'Try: "typing", "quiz", "status", "neofetch", "projects", "skill react", "ask Tell me about Arun", "theme matrix", or "tictactoe".',
   ])
 
 export const executeCommand = (rawCommand, context = {}) => {
@@ -721,6 +721,9 @@ export const executeCommand = (rawCommand, context = {}) => {
           '  • red        : Signature Cyber Red (Original)',
           '  • green      : Emerald Neon Green (#22c55e)',
           '  • blue       : Sky Blue Cyber (#38bdf8)',
+          '  • amber      : Cyber Amber Gold (#f59e0b)',
+          '  • purple     : Neon Violet Purple (#a855f7)',
+          '  • cyan       : Electric Cyan (#06b6d4)',
           '  • cyber      : Cyberpunk Lime / Yellow (#f0ff00)',
           '  • matrix     : Matrix Hacker Green (#00ff66)',
           '  • dracula    : Dracula Neon Pink / Purple (#ff79c6)',
@@ -1459,7 +1462,7 @@ export const executeCommand = (rawCommand, context = {}) => {
   }
 
   // 30. MINI GAMES (Requirement #23)
-  if (['snake', 'pong', 'tictactoe', '2048', 'memory', 'tetris', 'quiz', 'trivia', 'challenge'].includes(command)) {
+  if (['snake', 'pong', 'tictactoe', '2048', 'memory', 'tetris', 'quiz', 'trivia', 'challenge', 'type', 'typing', 'typer', 'typespeed'].includes(command)) {
     const category = (args[0] || 'all').toLowerCase()
     const gameParam = (command === 'quiz' || command === 'trivia' || command === 'challenge') ? `quiz:${category}` : command
     return [makeOutput('component', `game:${gameParam}`)]
@@ -1599,6 +1602,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       makeOutput('output', [
         '🎮 TERMINAL MINI GAMES',
         '-------------------------------------------------------',
+        '• typing    - Hacker Speed Typing Challenge (Long Paragraphs, Live WPM & Scores)',
         '• snake     - Classic Snake Arcade Game',
         '• pong      - Retro Pong VS AI',
         '• tictactoe - Tic-Tac-Toe Game',
@@ -1779,7 +1783,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '• System    : theme <name> | sound on/off | clear | uptime | date | time | uname | sysinfo | calc | echo | version | boot',
           '• Automated : runall | demo | testall | batch (Run all 40+ commands at once in 1 sequence!)',
           '• Dev Tools : npm | git | docker | qr | download | toast | music | playlist | weather | ask',
-          '• Fun/Games : quiz | snake | pong | tictactoe | 2048 | neofetch | coffee | joke | quote | motd | matrix | cmatrix | stop | hack | games | 42',
+          '• Fun/Games : typing | quiz | snake | pong | tictactoe | 2048 | neofetch | coffee | joke | quote | motd | matrix | cmatrix | stop | hack | games | 42',
         ]),
       ]
 
