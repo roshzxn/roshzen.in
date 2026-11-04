@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { Sparkles } from 'lucide-react'
 
 const QUICK_ACTIONS = [
@@ -37,13 +37,13 @@ function TerminalInput({
   const inputRef = useRef(null)
   const [cursorPos, setCursorPos] = useState(value.length)
 
-  const syncCursorPos = () => {
+  const syncCursorPos = useCallback(() => {
     setTimeout(() => {
       if (inputRef.current) {
         setCursorPos(inputRef.current.selectionStart ?? value.length)
       }
     }, 0)
-  }
+  }, [value.length])
 
   // Force focus input whenever focused or focusTick triggers
   useEffect(() => {
@@ -51,11 +51,11 @@ function TerminalInput({
       inputRef.current?.focus()
       syncCursorPos()
     }
-  }, [focused, focusTick])
+  }, [focused, focusTick, syncCursorPos])
 
   useEffect(() => {
     syncCursorPos()
-  }, [value])
+  }, [value, syncCursorPos])
 
   const handleRowClick = () => {
     if (onFocus) onFocus()
@@ -90,6 +90,20 @@ function TerminalInput({
       event.preventDefault()
       if (onClearScreen) onClearScreen()
       syncCursorPos()
+      return
+    }
+
+    // CTRL + D (EOF)
+    if (isCtrl && key === 'd') {
+      event.preventDefault()
+      if (onEof) onEof()
+      return
+    }
+
+    // CTRL + Z (Suspend)
+    if (isCtrl && key === 'z') {
+      event.preventDefault()
+      if (onSuspend) onSuspend()
       return
     }
 

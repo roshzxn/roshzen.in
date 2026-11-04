@@ -504,7 +504,7 @@ export const executeCommand = (rawCommand, context = {}) => {
     const target = args.join(' ').toLowerCase()
     if (!target) return [makeOutput('error', 'Usage: project <number or name> (e.g. project 1 or project zensave)')]
 
-    let found = null
+    let found
     const index = parseInt(target, 10)
     if (!isNaN(index) && index >= 1 && index <= projects.length) {
       found = projects[index - 1]
@@ -861,8 +861,8 @@ export const executeCommand = (rawCommand, context = {}) => {
 
   if (command === 'grep') {
     let isCaseInsensitive = false
-    let pattern = ''
-    let targetFile = ''
+    let pattern
+    let targetFile
     let argIdx = 0
     if (args[argIdx] === '-i') {
       isCaseInsensitive = true
@@ -1250,7 +1250,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       const url = args[0] || 'https://roshzen.in'
       return [
         makeOutput('output', [
-          `HTTP/1.1 200 OK`,
+          `HTTP/1.1 200 OK (${url})`,
           `Content-Type: text/html; charset=UTF-8`,
           `Server: RoshZen-Vercel-Edge`,
           `Date: ${new Date().toUTCString()}`,
@@ -1317,8 +1317,8 @@ export const executeCommand = (rawCommand, context = {}) => {
       ]
     }
 
-    let url = 'https://roshzen.in'
-    let label = target
+    let url
+    let label
 
     if (target === 'website' || target === 'portfolio' || target === 'site') {
       url = 'https://roshzen.in'
@@ -1819,7 +1819,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       openInNewTab(profile.linkedin)
       return [makeOutput('success', 'Opening LinkedIn in a new tab...')]
 
-    case 'resume':
+    case 'resume': {
       const link = document.createElement('a')
       link.href = profile.resume
       link.download = 'Arun_Roshan_Resume.pdf'
@@ -1827,6 +1827,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       link.click()
       link.remove()
       return [makeOutput('success', 'Downloading resume...')]
+    }
 
     case 'clear':
       if (context.clearTerminal) context.clearTerminal()

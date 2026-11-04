@@ -79,3 +79,12 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--portfolio-accent, #ef4444) #050505;
 }
+
+/* Hide scrollbars for swipeable mobile containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

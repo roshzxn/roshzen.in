@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowUpRight, ExternalLink, GitBranch, Globe2, Mail, MessageSquare, Music, Pause, Play, QrCode, Radio, Send, Sparkles } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, GitBranch, Globe2, Mail, MessageSquare, Pause, Play, QrCode, Radio, Send, Sparkles } from 'lucide-react'
 import { soundFX } from './sound'
 import { generateKnowledgeResponse } from '../../utils/aiKnowledgeEngine.js'
 

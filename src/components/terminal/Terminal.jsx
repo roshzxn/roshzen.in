@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom'
 import { Bell, Minimize2, Tv, Volume2, VolumeX } from 'lucide-react'
 import {
   executeCommand,
-  getCommandSuggestions,
   getDynamicSuggestions,
   getWelcomeEntry,
 } from './command'
@@ -166,7 +165,9 @@ function Terminal() {
       const next = !prev
       try {
         localStorage.setItem('roshzen_term_crt', String(next))
-      } catch {}
+      } catch {
+        // ignore
+      }
       return next
     })
   }, [])
@@ -307,7 +308,6 @@ function Terminal() {
   }, [fullscreen, closeFullscreen])
 
   const theme = terminalThemes[themeName] || terminalThemes.default
-  const suggestions = useMemo(() => getCommandSuggestions(), [])
 
   const lastTabPrefixRef = useRef(null)
 

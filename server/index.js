@@ -139,7 +139,7 @@ app.get('/api/health', (_req, res) => res.json({ status: 'ok', time: new Date().
 const distPath = path.join(__dirname, '../dist')
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath))
-  app.get('*', (req, res) => {
+  app.get('{/*path}', (req, res) => {
     if (req.path.startsWith('/api')) {
       return res.status(404).json({ error: 'API route not found' })
     }
