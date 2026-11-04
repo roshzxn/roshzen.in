@@ -1,5 +1,7 @@
+import type { CertificateItem } from '../components/Certificates'
+
 // Seed certificate data structured according to the template
-export const defaultCertificates = [
+export const defaultCertificates: CertificateItem[] = [
   {
     id: 'cert-1',
     title: 'Meta Front-End Developer Specialization',

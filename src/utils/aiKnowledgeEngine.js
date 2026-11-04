@@ -5,7 +5,7 @@
  * Ensures the terminal AI Co-Pilot works 100% reliably online and offline.
  */
 
-import { projects, skillGroups, socialLinks, services } from '../data/portfolio.js'
+import { projects, skillGroups, socialLinks, services } from '../data/portfolio'
 
 const BIO_FACTS = {
   name: 'Arun Roshan G J',

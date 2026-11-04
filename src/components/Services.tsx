@@ -1,12 +1,6 @@
 import Reveal from './Reveal'
 import SectionHeader from './SectionHeader'
-import type { LucideIcon } from 'lucide-react'
-
-interface ServiceItem {
-  title: string
-  text: string
-  icon: LucideIcon
-}
+import type { ServiceItem } from '../types/portfolio'
 
 interface ServicesProps {
   services: ServiceItem[]

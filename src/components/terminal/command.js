@@ -1,4 +1,4 @@
-import { projects, socialLinks } from '../../data/portfolio.js'
+import { projects, socialLinks } from '../../data/portfolio'
 import { themeNames } from './theme.js'
 import { vfs } from './vfs.js'
 

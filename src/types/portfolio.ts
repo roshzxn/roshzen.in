@@ -55,9 +55,10 @@ export interface JourneyItem {
 
 export interface ServiceItem {
   title: string
-  description: string
+  text: string
   icon: LucideIcon
-  points: string[]
+  description?: string
+  points?: string[]
 }
 
 export interface SocialLink {

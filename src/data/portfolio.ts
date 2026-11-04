@@ -3,23 +3,33 @@ import {
   BookOpen,
   Brain,
   BriefcaseBusiness,
-  Code2,
-  Database,
   Camera,
   CirclePlay,
+  Code2,
+  Database,
   GitBranch,
   Globe2,
   GraduationCap,
-  Layers3,
   Laptop,
+  Layers3,
   Mail,
   MonitorSmartphone,
   Palette,
   Rocket,
   Terminal,
 } from 'lucide-react'
+import type {
+  HeroStat,
+  JourneyItem,
+  NavLink,
+  Principle,
+  Project,
+  ServiceItem,
+  SkillGroup,
+  SocialLink,
+} from '../types/portfolio'
 
-export const navLinks = [
+export const navLinks: NavLink[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
@@ -29,20 +39,20 @@ export const navLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export const heroStats = [
+export const heroStats: HeroStat[] = [
   { label: 'Track', value: 'CSE Student' },
   { label: 'Frontend', value: 'React Learner' },
   { label: 'Programming', value: 'Python Basics' },
   { label: 'Build Mode', value: 'App Builder' },
 ]
 
-export const profileHighlights = [
+export const profileHighlights: string[] = [
   'CSE student building real web and app ideas',
   'Frontend developer focused on React and clean UI',
   'Future software engineer practicing production habits',
 ]
 
-export const skillGroups = [
+export const skillGroups: SkillGroup[] = [
   {
     title: 'Frontend',
     icon: MonitorSmartphone,
@@ -65,7 +75,7 @@ export const skillGroups = [
   },
 ]
 
-export const projects = [
+export const projects: Project[] = [
   {
     title: 'RoshZen Portfolio',
     idea: 'My personal red-black cyber-tech portfolio website for presenting skills, projects, services, and learning progress as a developer.',
@@ -116,7 +126,7 @@ export const projects = [
   },
 ]
 
-export const journey = [
+export const journey: JourneyItem[] = [
   {
     title: 'Started Computer Science Engineering',
     text: 'Began the CSE path and started connecting classroom concepts with real software ideas.',
@@ -149,7 +159,7 @@ export const journey = [
   },
 ]
 
-export const services = [
+export const services: ServiceItem[] = [
   {
     title: 'Portfolio Websites',
     text: 'Clean personal sites for students, creators, and early-career developers.',
@@ -182,7 +192,7 @@ export const services = [
   },
 ]
 
-export const socialLinks = [
+export const socialLinks: SocialLink[] = [
   {
     label: 'GitHub',
     handle: 'github.com/roshzxn1003',
@@ -215,9 +225,9 @@ export const socialLinks = [
   },
 ]
 
-export const techBadges = ['React', 'JavaScript', 'Python', 'UI Design', 'App Ideas', 'Vercel']
+export const techBadges: string[] = ['React', 'JavaScript', 'Python', 'UI Design', 'App Ideas', 'Vercel']
 
-export const designPrinciples = [
+export const designPrinciples: Principle[] = [
   { label: 'Readable code', icon: Code2 },
   { label: 'Responsive UI', icon: MonitorSmartphone },
   { label: 'Clean visuals', icon: Palette },
