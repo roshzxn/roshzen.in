@@ -1,7 +1,7 @@
 import { ArrowRight, Download, Mail, Sparkles, Terminal } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useState, useEffect } from 'react'
-import arunAvatar from '../assets/arun-roshan-avatar.png'
+import arunAvatar from '../assets/arun-roshan-avatar.webp'
 import TypingTerminal from './TypingTerminal'
 import type { HeroStat } from '../types/portfolio'
 
