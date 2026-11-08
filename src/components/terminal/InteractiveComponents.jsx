@@ -134,7 +134,7 @@ export function FakeHacker({ target = 'NASA' }) {
 
 // 4. REAL QR GENERATOR
 export function QrCodeGenerator({ text, url }) {
-  const targetUrl = url || 'https://github.com/roshzxn1003'
+  const targetUrl = url || 'https://github.com/roshzxn'
   const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(targetUrl)}&color=000000&bgcolor=ffffff`
   const fallbackQrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=${encodeURIComponent(targetUrl)}`
 
@@ -211,7 +211,7 @@ export function InteractiveContactCard({ onReturnToPrompt }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         <a
-          href="https://github.com/roshzxn1003"
+          href="https://github.com/roshzxn"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/80 px-3.5 py-2.5 text-xs text-slate-200 hover:border-red-500/50 hover:bg-red-500/10 hover:text-white transition-all"
@@ -573,14 +573,14 @@ export function GitHubCard() {
           <div>
             <div className="text-white font-bold text-sm flex items-center gap-2">
               <span>Arun Roshan</span>
-              <span className="text-xs text-slate-400 font-normal">@roshzxn1003</span>
+              <span className="text-xs text-slate-400 font-normal">@roshzxn</span>
             </div>
             <div className="text-xs text-slate-400">Full-Stack Engineer & Mobile App Developer</div>
           </div>
         </div>
 
         <a
-          href="https://github.com/roshzxn1003"
+          href="https://github.com/roshzxn"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-colors"
@@ -611,7 +611,7 @@ export function GitHubCard() {
 
       <div className="text-[11px] text-slate-400 flex items-center gap-2 pt-1">
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-        <span>Featured projects: <a href="https://github.com/roshzxn1003/roshzen.in" target="_blank" rel="noreferrer" className="text-slate-300 underline hover:text-white">roshzen.in</a>, <code className="text-slate-300">finance-app</code>, <code className="text-slate-300">ai-agents</code></span>
+        <span>Featured projects: <a href="https://github.com/roshzxn/roshzen.in" target="_blank" rel="noreferrer" className="text-slate-300 underline hover:text-white">roshzen.in</a>, <code className="text-slate-300">finance-app</code>, <code className="text-slate-300">ai-agents</code></span>
       </div>
     </div>
   )

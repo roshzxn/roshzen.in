@@ -7,7 +7,7 @@ const profile = {
   role: 'Frontend Developer & Computer Science Engineer',
   location: 'India',
   email: 'arunroshan1003@gmail.com',
-  github: 'https://github.com/roshzxn1003',
+  github: 'https://github.com/roshzxn',
   linkedin: 'https://www.linkedin.com/in/arun-roshan-gj/',
   instagram: 'https://instagram.com/rosh.zxn',
   youtube: 'https://www.youtube.com/@roshzxn',
@@ -279,8 +279,8 @@ export const executeCommand = (rawCommand, context = {}) => {
     }
 
     if (target === 'github' || target === 'gh') {
-      openInNewTab('https://github.com/roshzxn1003')
-      return [makeOutput('success', '⚡ Opening GitHub Profile (github.com/roshzxn1003)...')]
+      openInNewTab('https://github.com/roshzxn')
+      return [makeOutput('success', '⚡ Opening GitHub Profile (github.com/roshzxn)...')]
     }
 
     if (target === 'linkedin' || target === 'li') {
@@ -368,7 +368,7 @@ export const executeCommand = (rawCommand, context = {}) => {
     return [
       makeOutput('header', '🌐 ARUN ROSHAN - SOCIAL & OFFICIAL PROFILES'),
       makeOutput('list', [
-        '• GitHub    : https://github.com/roshzxn1003  (Type: open github)',
+        '• GitHub    : https://github.com/roshzxn  (Type: open github)',
         '• LinkedIn  : https://www.linkedin.com/in/arun-roshan-gj/  (Type: open linkedin)',
         '• YouTube   : https://www.youtube.com/@roshzxn  (Type: open youtube)',
         '• Instagram : https://instagram.com/rosh.zxn  (Type: open instagram)',
@@ -433,7 +433,7 @@ export const executeCommand = (rawCommand, context = {}) => {
         makeOutput('success', '⚡ RoshZen Private Links:'),
         makeOutput('list', [
           '• Portfolio Website     : https://www.roshzen.in',
-          '• GitHub Repositories   : https://github.com/roshzxn1003',
+          '• GitHub Repositories   : https://github.com/roshzxn',
           '• LinkedIn Network      : https://www.linkedin.com/in/arun-roshan-gj/',
           '• YouTube Channel       : https://www.youtube.com/@roshzxn',
           '• Instagram             : https://instagram.com/rosh.zxn',
@@ -549,14 +549,14 @@ export const executeCommand = (rawCommand, context = {}) => {
   if (normalized === 'github stats' || normalized === 'gh stats') {
     return [
       makeOutput('output', [
-        '🐙 GITHUB STATS [ @roshzxn1003 ]',
+        '🐙 GITHUB STATS [ @roshzxn ]',
         '---------------------------------------',
         '📦 Public Repositories : 18 Repos',
         '👥 Followers           : 42 Followers',
         '⭐ Total Stars         : 64 Stars',
         '🔥 Contributions (2026): 480+ Commits',
         '🚀 Latest Commit       : feat(terminal): upgrade terminal v4.2 with 40+ commands',
-        '🔗 Profile             : https://github.com/roshzxn1003',
+        '🔗 Profile             : https://github.com/roshzxn',
       ]),
     ]
   }
@@ -1306,7 +1306,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '📱 ROSHZEN SOCIAL MEDIA QR CODE REGISTRY',
           '-------------------------------------------------------',
           '• qr website   / qr portfolio  → Portfolio Website (https://roshzen.in)',
-          '• qr github    / qr gh         → GitHub Profile (github.com/roshzxn1003)',
+          '• qr github    / qr gh         → GitHub Profile (github.com/roshzxn)',
           '• qr linkedin  / qr li         → LinkedIn Profile (linkedin.com/in/arun-roshan-gj)',
           '• qr instagram / qr ig         → Instagram Profile (instagram.com/rosh.zxn)',
           '• qr youtube   / qr yt         → YouTube Channel (youtube.com/@roshzxn)',
@@ -1577,7 +1577,7 @@ export const executeCommand = (rawCommand, context = {}) => {
         'Status       : 🟢 OPEN FOR OPPORTUNITIES',
         'Services     : React Web Apps, Mobile UI, Portfolio Design, Frontend Development',
         'Email        : arunroshan1003@gmail.com',
-        'GitHub       : https://github.com/roshzxn1003',
+        'GitHub       : https://github.com/roshzxn',
         'LinkedIn     : https://www.linkedin.com/in/arun-roshan-gj/',
         'Action       : Scrolling to contact section...',
       ]),
@@ -1847,7 +1847,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '      /_/    \\_\\     OS        RoshZen Linux v4.2',
           '                     Editor    VS Code & Vim',
           '                     Stack     React JavaScript Python Flutter',
-          '                     GitHub    github.com/roshzxn1003',
+          '                     GitHub    github.com/roshzxn',
           '                     Portfolio RoshZen Terminal Portfolio',
         ]),
       ]

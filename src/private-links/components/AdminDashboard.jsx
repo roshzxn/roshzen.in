@@ -1923,7 +1923,7 @@ export default function AdminDashboard({ onLogout }) {
                       onChange={(e) =>
                         setProjectFormData({ ...projectFormData, github: e.target.value })
                       }
-                      placeholder="https://github.com/roshzxn1003/..."
+                      placeholder="https://github.com/roshzxn/..."
                       className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:border-red-500 focus:outline-none"
                     />
                   </div>
@@ -2035,7 +2035,7 @@ export default function AdminDashboard({ onLogout }) {
                     required
                     value={linkFormData.url}
                     onChange={(e) => setLinkFormData({ ...linkFormData, url: e.target.value })}
-                    placeholder="https://github.com/roshzxn1003"
+                    placeholder="https://github.com/roshzxn"
                     className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono"
                   />
                 </div>

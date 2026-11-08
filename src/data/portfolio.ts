@@ -81,7 +81,7 @@ export const projects: Project[] = [
     idea: 'My personal red-black cyber-tech portfolio website for presenting skills, projects, services, and learning progress as a developer.',
     stack: ['React', 'Tailwind CSS', 'Motion'],
     features: ['Responsive sections', 'Premium red theme', 'Recruiter-friendly content'],
-    github: 'https://github.com/roshzxn1003/portfolio',
+    github: 'https://github.com/roshzxn/portfolio',
     live: 'https://roshzen.in',
   },
   {
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     idea: 'A private couple memories app for saving moments, notes, dates, and emotional digital keepsakes — built with real auth and a clean mobile UI.',
     stack: ['React', 'Supabase', 'Mobile UI'],
     features: ['Private vault concept', 'Memory timeline', 'Secure app structure'],
-    github: 'https://github.com/roshzxn1003/zen-love-vault',
+    github: 'https://github.com/roshzxn/zen-love-vault',
     live: 'https://zen-love-vault.lovable.app',
   },
   {
@@ -195,8 +195,8 @@ export const services: ServiceItem[] = [
 export const socialLinks: SocialLink[] = [
   {
     label: 'GitHub',
-    handle: 'github.com/roshzxn1003',
-    href: 'https://github.com/roshzxn1003',
+    handle: 'github.com/roshzxn',
+    href: 'https://github.com/roshzxn',
     icon: GitBranch,
   },
   {
