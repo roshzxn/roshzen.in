@@ -1691,7 +1691,7 @@ export default function AdminDashboard({ onLogout }) {
                       onChange={(e) =>
                         setCertFormData({ ...certFormData, credentialId: e.target.value })
                       }
-                      placeholder="e.g. META-FED-88219"
+                      placeholder="e.g. CERT-12345"
                       className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:border-red-500 focus:outline-none"
                     />
                   </div>

@@ -6,9 +6,9 @@ const STORAGE_KEY = 'roshzen_certificates'
 function getLocalCertificates() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
+    if (raw !== null) {
       const parsed = JSON.parse(raw)
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed
+      if (Array.isArray(parsed)) return parsed
     }
   } catch {
     // ignore parse error
@@ -53,7 +53,7 @@ export async function fetchCertificates() {
       .select('*')
       .order('position', { ascending: true })
 
-    if (!error && data && data.length > 0) {
+    if (!error && Array.isArray(data)) {
       const normalized = data.map(normalizeCert)
       saveLocalCertificates(normalized)
       return normalized

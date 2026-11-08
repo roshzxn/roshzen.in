@@ -196,52 +196,8 @@ VALUES
   ('Direct Email', 'Get in touch for collaborations, projects & inquiries', 'mailto:arunroshan1003@gmail.com', 'Mail', 'email', 7, true, '#10b981')
 ON CONFLICT DO NOTHING;
 
--- Seed Certificates
-INSERT INTO public.certificates (title, issuer, issue_date, credential_id, about, skills, certificate_image, view_url, verify_url, position, is_active, featured)
-VALUES 
-  (
-    'Meta Front-End Developer Specialization',
-    'Meta / Coursera',
-    'August, 2024',
-    'META-FED-88219X',
-    'Comprehensive 9-course professional program covering modern React engineering, component architecture, UI/UX design principles, responsive web layouts, and production code testing.',
-    ARRAY['React', 'JavaScript (ES6+)', 'HTML5 & CSS3', 'Tailwind CSS', 'UI/UX Design', 'Version Control'],
-    'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=90',
-    'https://www.coursera.org/verify/professional-cert/meta-frontend-developer',
-    1,
-    true,
-    true
-  ),
-  (
-    'Python for Everybody Specialization',
-    'University of Michigan',
-    'May, 2024',
-    'PY4E-91042-UMICH',
-    'In-depth specialization focusing on Python programming basics, data structures, networked application interfaces (REST APIs), data scraping, and relational database basics.',
-    ARRAY['Python', 'Data Structures', 'REST APIs', 'JSON Parsing', 'Database Basics (SQL)'],
-    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&auto=format&fit=crop&q=90',
-    'https://www.coursera.org/verify/specialization/python-for-everybody',
-    2,
-    true,
-    true
-  ),
-  (
-    'Responsive Web Design Certification',
-    'freeCodeCamp',
-    'December, 2023',
-    'FCC-RWD-3011A',
-    'Developer certification representing 300 hours of coursework in modern responsive design, accessibility standards (a11y), flexbox layouts, CSS grid systems, and adaptive typography.',
-    ARRAY['Responsive Design', 'CSS Grid', 'Flexbox', 'Web Accessibility', 'Modern CSS3'],
-    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=1200&auto=format&fit=crop&q=90',
-    'https://www.freecodecamp.org/certification/roshzxn/responsive-web-design',
-    3,
-    true,
-    false
-  )
-ON CONFLICT DO NOTHING;
+-- Seed Certificates (Optional - add your real credentials via Admin Portal or insert manually)
+-- Certificates table is created and empty by default.
 
 -- Seed Projects
 INSERT INTO public.projects (title, idea, stack, features, github, live, position, is_active)

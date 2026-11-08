@@ -48,6 +48,10 @@ export default function Certificates({ certificates = [] }: CertificatesProps) {
     .filter((c) => c.is_active !== false)
     .sort((a, b) => (a.position || 0) - (b.position || 0))
 
+  if (activeCerts.length === 0) {
+    return null
+  }
+
   const issuers = ['ALL', ...new Set(activeCerts.map((c) => c.issuer).filter((val): val is string => Boolean(val)))]
 
   const filteredCerts =

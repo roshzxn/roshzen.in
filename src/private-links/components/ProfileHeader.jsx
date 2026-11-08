@@ -21,7 +21,7 @@ export default function ProfileHeader({ profile }) {
             alt={profile.name}
             className="w-full h-full object-cover rounded-full group-hover:scale-105 transition duration-500"
             onError={(e) => {
-              e.target.src = 'https://ui-avatars.com/api/?name=Arun+Roshan&background=ef4444&color=fff'
+              e.target.src = 'https://avatars.githubusercontent.com/u/261951979?s=400&u=3522b61c1dad53834da6cb0667aa67f343c21bb2&v=4'
             }}
           />
         </div>

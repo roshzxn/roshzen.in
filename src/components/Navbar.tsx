@@ -6,12 +6,20 @@ import { THEME_PALETTES, getStoredTheme } from '../utils/portfolioTheme'
 
 const resumeUrl = '/AR-resume.pdf'
 
-function Navbar() {
+interface NavbarProps {
+  hasCertificates?: boolean
+}
+
+function Navbar({ hasCertificates = true }: NavbarProps) {
   const [active, setActive] = useState('home')
   const [themePalette, setThemePalette] = useState(() => {
     const current = getStoredTheme()
     return THEME_PALETTES[current] || THEME_PALETTES.default
   })
+
+  const visibleNavLinks = hasCertificates
+    ? navLinks
+    : navLinks.filter((link) => link.href !== '#certificates')
 
   useEffect(() => {
     const handleThemeChange = (e: Event) => {
@@ -25,7 +33,7 @@ function Navbar() {
   }, [])
 
   useEffect(() => {
-    const sections = navLinks
+    const sections = visibleNavLinks
       .map((link) => document.querySelector<HTMLElement>(link.href))
       .filter((el): el is HTMLElement => Boolean(el))
 
@@ -41,9 +49,9 @@ function Navbar() {
 
     sections.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [])
+  }, [visibleNavLinks])
 
-  const menuItems = navLinks.map((link) => ({
+  const menuItems = visibleNavLinks.map((link) => ({
     label: link.label,
     ariaLabel: `Go to ${link.label} section`,
     link: link.href,
@@ -86,7 +94,7 @@ function Navbar() {
           </a>
 
           <div className="flex items-center gap-1 rounded-full border border-red-400/15 bg-black/30 p-1">
-            {navLinks.map((link) => {
+            {visibleNavLinks.map((link) => {
               const isActive = active === link.href.slice(1)
               return (
                 <a

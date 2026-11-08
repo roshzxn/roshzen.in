@@ -1,4 +1,5 @@
 import { projects, socialLinks } from '../../data/portfolio'
+import { defaultCertificates } from '../../data/certificates'
 import { themeNames } from './theme.js'
 import { vfs } from './vfs.js'
 
@@ -643,16 +644,25 @@ export const executeCommand = (rawCommand, context = {}) => {
 
   // 11. CERTIFICATES (Requirement #13)
   if (command === 'certificates' || command === 'certs') {
+    if (defaultCertificates && defaultCertificates.length > 0) {
+      return [
+        makeOutput('output', [
+          '📜 ARUN ROSHAN CERTIFICATIONS',
+          '------------------------------------------------',
+          ...defaultCertificates.map(
+            (c, i) => `${i + 1}. ${c.title} | ${c.issuer || 'Verified'} (${c.date || c.issue_date || ''})`
+          ),
+          '',
+          '📥 Download verified certificates with: "download certificates"',
+        ]),
+      ]
+    }
     return [
       makeOutput('output', [
         '📜 ARUN ROSHAN CERTIFICATIONS',
         '------------------------------------------------',
-        '1. Full-Stack Web Development | Meta / Coursera (2025)',
-        '2. Python for Data Science & Software Engineering | IBM (2025)',
-        '3. Modern React & Redux Toolkit Certification | FreeCodeCamp (2026)',
-        '4. Git & Open Source Software Principles | GitHub (2025)',
-        '',
-        '📥 Download verified certificates with: "download certificates"',
+        'No certifications currently listed.',
+        'Credentials can be updated anytime via the Admin Portal (/admin).',
       ]),
     ]
   }
@@ -1289,8 +1299,14 @@ export const executeCommand = (rawCommand, context = {}) => {
       return [makeOutput('success', `Downloading roshzen_${target}.json...`)]
     }
     if (target === 'certificates') {
-      downloadFile('roshzen_certificates.txt', '1. Meta Fullstack Web Dev\n2. IBM Python Data Science\n3. FreeCodeCamp React', 'text/plain')
-      return [makeOutput('success', 'Downloading roshzen_certificates.txt...')]
+      if (defaultCertificates && defaultCertificates.length > 0) {
+        const certsContent = defaultCertificates
+          .map((c, i) => `${i + 1}. ${c.title} - ${c.issuer || ''} (${c.credentialId || ''})`)
+          .join('\n')
+        downloadFile('roshzen_certificates.txt', certsContent, 'text/plain')
+        return [makeOutput('success', 'Downloading roshzen_certificates.txt...')]
+      }
+      return [makeOutput('error', 'No certificates currently available for download.')]
     }
     return [makeOutput('error', 'Usage: download resume, download portfolio, download certificates, download projects')]
   }
