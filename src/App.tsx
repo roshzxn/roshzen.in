@@ -47,15 +47,16 @@ interface PortfolioMainContentProps {
 
 function PortfolioMainContent({ dynamicProjects, dynamicCertificates }: PortfolioMainContentProps) {
   const activeProjects = dynamicProjects.filter((p) => p.is_active !== false)
+  const hasCertificates = dynamicCertificates.some((c) => c.is_active !== false)
 
   return (
     <>
-      <Navbar />
+      <Navbar hasCertificates={hasCertificates} />
       <Hero heroStats={heroStats} techBadges={techBadges} />
       <About highlights={profileHighlights} principles={designPrinciples} />
       <Skills skillGroups={skillGroups} />
       <Projects projects={activeProjects} />
-      <Certificates certificates={dynamicCertificates} />
+      {hasCertificates && <Certificates certificates={dynamicCertificates} />}
       <Journey journey={journey} />
       <Services services={services} />
       <Contact socialLinks={socialLinks} />
