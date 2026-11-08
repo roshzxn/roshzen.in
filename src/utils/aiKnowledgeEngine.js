@@ -5,14 +5,14 @@
  * Ensures the terminal AI Co-Pilot works 100% reliably online and offline.
  */
 
-import { projects, skillGroups, socialLinks, services } from '../data/portfolio.js'
+import { projects, skillGroups, socialLinks, services } from '../data/portfolio'
 
 const BIO_FACTS = {
   name: 'Arun Roshan G J',
-  handle: 'roshzen / roshzxn1003',
+  handle: 'roshzen / roshzxn',
   role: 'Computer Science Engineering (CSE) Student & Frontend/App Developer',
   email: 'arunroshan1003@gmail.com',
-  github: 'https://github.com/roshzxn1003',
+  github: 'https://github.com/roshzxn',
   linkedin: 'https://www.linkedin.com/in/arun-roshan-gj/',
   instagram: 'https://instagram.com/rosh.zxn',
   youtube: 'https://www.youtube.com/@roshzxn',
@@ -129,7 +129,7 @@ Arun uses Supabase for:
   - Interactive chronological memory timeline
   - Private shared vault space
 • Live Demo: https://zen-love-vault.lovable.app
-• GitHub: https://github.com/roshzxn1003/zen-love-vault`
+• GitHub: https://github.com/roshzxn/zen-love-vault`
   }
 
   if (
@@ -156,7 +156,7 @@ Arun uses Supabase for:
     return `⚡ RoshZen Cyber Terminal Portfolio (This Website)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 • URL: https://roshzen.in
-• GitHub: https://github.com/roshzxn1003/portfolio
+• GitHub: https://github.com/roshzxn/portfolio
 • Tech Stack: React 19, Tailwind CSS v4, Motion, Web Audio API, Canvas Shaders
 • Standout Features:
   - Fully interactive bash-style terminal with 30+ functional commands

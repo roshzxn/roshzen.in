@@ -1,4 +1,4 @@
-import { projects, socialLinks } from '../../data/portfolio.js'
+import { projects, socialLinks } from '../../data/portfolio'
 import { themeNames } from './theme.js'
 import { vfs } from './vfs.js'
 
@@ -7,7 +7,7 @@ const profile = {
   role: 'Frontend Developer & Computer Science Engineer',
   location: 'India',
   email: 'arunroshan1003@gmail.com',
-  github: 'https://github.com/roshzxn1003',
+  github: 'https://github.com/roshzxn',
   linkedin: 'https://www.linkedin.com/in/arun-roshan-gj/',
   instagram: 'https://instagram.com/rosh.zxn',
   youtube: 'https://www.youtube.com/@roshzxn',
@@ -85,7 +85,7 @@ const commandList = [
   'neofetch', 'coffee', 'joke', 'quote', 'matrix', 'cmatrix', 'stop', 'fullscreen', 'banner',
   'welcome', 'portfolio', 'status', 'visitors', 'github stats', 'ask', 'roadmap',
   'timeline', 'certificates', 'clock', 'timer', 'weather', 'music', 'playlist', 'sudo', 'hack',
-  'snake', 'pong', 'tictactoe', '2048', 'games', 'play', 'npm', 'git', 'docker', 'top', 'ps', 'kill',
+  'snake', 'pong', 'tictactoe', '2048', 'typing', 'type', 'typer', 'typespeed', 'games', 'play', 'npm', 'git', 'docker', 'top', 'ps', 'kill',
   'ping', 'curl', 'wget', 'history', 'download', 'qr', 'open', 'toast', 'sound', 'boot',
   'stats', 'analytics', 'blogs', 'blog', 'devmode', 'uptime', 'date', 'time', 'uname',
   'sysinfo', 'calc', 'echo', 'whois', 'hire', 'freelance', 'credits', 'thanks', 'motd', 'version',
@@ -198,7 +198,7 @@ export const getWelcomeEntry = () =>
   makeOutput('welcome', [
     '⚡ Welcome to RoshZen Hackerspace Developer Terminal v4.2',
     'Type "help" to list all 40+ commands.',
-    'Try: "quiz", "status", "neofetch", "projects", "skill react", "ask Tell me about Arun", "theme cyber", or "tictactoe".',
+    'Try: "typing", "quiz", "status", "neofetch", "projects", "skill react", "ask Tell me about Arun", "theme matrix", or "tictactoe".',
   ])
 
 export const executeCommand = (rawCommand, context = {}) => {
@@ -279,8 +279,8 @@ export const executeCommand = (rawCommand, context = {}) => {
     }
 
     if (target === 'github' || target === 'gh') {
-      openInNewTab('https://github.com/roshzxn1003')
-      return [makeOutput('success', '⚡ Opening GitHub Profile (github.com/roshzxn1003)...')]
+      openInNewTab('https://github.com/roshzxn')
+      return [makeOutput('success', '⚡ Opening GitHub Profile (github.com/roshzxn)...')]
     }
 
     if (target === 'linkedin' || target === 'li') {
@@ -368,7 +368,7 @@ export const executeCommand = (rawCommand, context = {}) => {
     return [
       makeOutput('header', '🌐 ARUN ROSHAN - SOCIAL & OFFICIAL PROFILES'),
       makeOutput('list', [
-        '• GitHub    : https://github.com/roshzxn1003  (Type: open github)',
+        '• GitHub    : https://github.com/roshzxn  (Type: open github)',
         '• LinkedIn  : https://www.linkedin.com/in/arun-roshan-gj/  (Type: open linkedin)',
         '• YouTube   : https://www.youtube.com/@roshzxn  (Type: open youtube)',
         '• Instagram : https://instagram.com/rosh.zxn  (Type: open instagram)',
@@ -433,7 +433,7 @@ export const executeCommand = (rawCommand, context = {}) => {
         makeOutput('success', '⚡ RoshZen Private Links:'),
         makeOutput('list', [
           '• Portfolio Website     : https://www.roshzen.in',
-          '• GitHub Repositories   : https://github.com/roshzxn1003',
+          '• GitHub Repositories   : https://github.com/roshzxn',
           '• LinkedIn Network      : https://www.linkedin.com/in/arun-roshan-gj/',
           '• YouTube Channel       : https://www.youtube.com/@roshzxn',
           '• Instagram             : https://instagram.com/rosh.zxn',
@@ -504,7 +504,7 @@ export const executeCommand = (rawCommand, context = {}) => {
     const target = args.join(' ').toLowerCase()
     if (!target) return [makeOutput('error', 'Usage: project <number or name> (e.g. project 1 or project zensave)')]
 
-    let found = null
+    let found
     const index = parseInt(target, 10)
     if (!isNaN(index) && index >= 1 && index <= projects.length) {
       found = projects[index - 1]
@@ -549,14 +549,14 @@ export const executeCommand = (rawCommand, context = {}) => {
   if (normalized === 'github stats' || normalized === 'gh stats') {
     return [
       makeOutput('output', [
-        '🐙 GITHUB STATS [ @roshzxn1003 ]',
+        '🐙 GITHUB STATS [ @roshzxn ]',
         '---------------------------------------',
         '📦 Public Repositories : 18 Repos',
         '👥 Followers           : 42 Followers',
         '⭐ Total Stars         : 64 Stars',
         '🔥 Contributions (2026): 480+ Commits',
         '🚀 Latest Commit       : feat(terminal): upgrade terminal v4.2 with 40+ commands',
-        '🔗 Profile             : https://github.com/roshzxn1003',
+        '🔗 Profile             : https://github.com/roshzxn',
       ]),
     ]
   }
@@ -721,6 +721,9 @@ export const executeCommand = (rawCommand, context = {}) => {
           '  • red        : Signature Cyber Red (Original)',
           '  • green      : Emerald Neon Green (#22c55e)',
           '  • blue       : Sky Blue Cyber (#38bdf8)',
+          '  • amber      : Cyber Amber Gold (#f59e0b)',
+          '  • purple     : Neon Violet Purple (#a855f7)',
+          '  • cyan       : Electric Cyan (#06b6d4)',
           '  • cyber      : Cyberpunk Lime / Yellow (#f0ff00)',
           '  • matrix     : Matrix Hacker Green (#00ff66)',
           '  • dracula    : Dracula Neon Pink / Purple (#ff79c6)',
@@ -861,8 +864,8 @@ export const executeCommand = (rawCommand, context = {}) => {
 
   if (command === 'grep') {
     let isCaseInsensitive = false
-    let pattern = ''
-    let targetFile = ''
+    let pattern
+    let targetFile
     let argIdx = 0
     if (args[argIdx] === '-i') {
       isCaseInsensitive = true
@@ -1250,7 +1253,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       const url = args[0] || 'https://roshzen.in'
       return [
         makeOutput('output', [
-          `HTTP/1.1 200 OK`,
+          `HTTP/1.1 200 OK (${url})`,
           `Content-Type: text/html; charset=UTF-8`,
           `Server: RoshZen-Vercel-Edge`,
           `Date: ${new Date().toUTCString()}`,
@@ -1303,7 +1306,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '📱 ROSHZEN SOCIAL MEDIA QR CODE REGISTRY',
           '-------------------------------------------------------',
           '• qr website   / qr portfolio  → Portfolio Website (https://roshzen.in)',
-          '• qr github    / qr gh         → GitHub Profile (github.com/roshzxn1003)',
+          '• qr github    / qr gh         → GitHub Profile (github.com/roshzxn)',
           '• qr linkedin  / qr li         → LinkedIn Profile (linkedin.com/in/arun-roshan-gj)',
           '• qr instagram / qr ig         → Instagram Profile (instagram.com/rosh.zxn)',
           '• qr youtube   / qr yt         → YouTube Channel (youtube.com/@roshzxn)',
@@ -1317,8 +1320,8 @@ export const executeCommand = (rawCommand, context = {}) => {
       ]
     }
 
-    let url = 'https://roshzen.in'
-    let label = target
+    let url
+    let label
 
     if (target === 'website' || target === 'portfolio' || target === 'site') {
       url = 'https://roshzen.in'
@@ -1459,7 +1462,7 @@ export const executeCommand = (rawCommand, context = {}) => {
   }
 
   // 30. MINI GAMES (Requirement #23)
-  if (['snake', 'pong', 'tictactoe', '2048', 'memory', 'tetris', 'quiz', 'trivia', 'challenge'].includes(command)) {
+  if (['snake', 'pong', 'tictactoe', '2048', 'memory', 'tetris', 'quiz', 'trivia', 'challenge', 'type', 'typing', 'typer', 'typespeed'].includes(command)) {
     const category = (args[0] || 'all').toLowerCase()
     const gameParam = (command === 'quiz' || command === 'trivia' || command === 'challenge') ? `quiz:${category}` : command
     return [makeOutput('component', `game:${gameParam}`)]
@@ -1574,7 +1577,7 @@ export const executeCommand = (rawCommand, context = {}) => {
         'Status       : 🟢 OPEN FOR OPPORTUNITIES',
         'Services     : React Web Apps, Mobile UI, Portfolio Design, Frontend Development',
         'Email        : arunroshan1003@gmail.com',
-        'GitHub       : https://github.com/roshzxn1003',
+        'GitHub       : https://github.com/roshzxn',
         'LinkedIn     : https://www.linkedin.com/in/arun-roshan-gj/',
         'Action       : Scrolling to contact section...',
       ]),
@@ -1599,6 +1602,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       makeOutput('output', [
         '🎮 TERMINAL MINI GAMES',
         '-------------------------------------------------------',
+        '• typing    - Hacker Speed Typing Challenge (Long Paragraphs, Live WPM & Scores)',
         '• snake     - Classic Snake Arcade Game',
         '• pong      - Retro Pong VS AI',
         '• tictactoe - Tic-Tac-Toe Game',
@@ -1779,7 +1783,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '• System    : theme <name> | sound on/off | clear | uptime | date | time | uname | sysinfo | calc | echo | version | boot',
           '• Automated : runall | demo | testall | batch (Run all 40+ commands at once in 1 sequence!)',
           '• Dev Tools : npm | git | docker | qr | download | toast | music | playlist | weather | ask',
-          '• Fun/Games : quiz | snake | pong | tictactoe | 2048 | neofetch | coffee | joke | quote | motd | matrix | cmatrix | stop | hack | games | 42',
+          '• Fun/Games : typing | quiz | snake | pong | tictactoe | 2048 | neofetch | coffee | joke | quote | motd | matrix | cmatrix | stop | hack | games | 42',
         ]),
       ]
 
@@ -1819,7 +1823,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       openInNewTab(profile.linkedin)
       return [makeOutput('success', 'Opening LinkedIn in a new tab...')]
 
-    case 'resume':
+    case 'resume': {
       const link = document.createElement('a')
       link.href = profile.resume
       link.download = 'Arun_Roshan_Resume.pdf'
@@ -1827,6 +1831,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       link.click()
       link.remove()
       return [makeOutput('success', 'Downloading resume...')]
+    }
 
     case 'clear':
       if (context.clearTerminal) context.clearTerminal()
@@ -1842,7 +1847,7 @@ export const executeCommand = (rawCommand, context = {}) => {
           '      /_/    \\_\\     OS        RoshZen Linux v4.2',
           '                     Editor    VS Code & Vim',
           '                     Stack     React JavaScript Python Flutter',
-          '                     GitHub    github.com/roshzxn1003',
+          '                     GitHub    github.com/roshzxn',
           '                     Portfolio RoshZen Terminal Portfolio',
         ]),
       ]

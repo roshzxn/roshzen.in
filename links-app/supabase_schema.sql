@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   name TEXT NOT NULL DEFAULT 'Arun Roshan',
   username TEXT NOT NULL DEFAULT 'RoshZen ⚡',
   bio TEXT DEFAULT 'Developer • CSE Student • Builder • Tech Enthusiast',
-  avatar_url TEXT DEFAULT 'https://github.com/roshzxn1003.png',
+  avatar_url TEXT DEFAULT 'https://github.com/roshzxn.png',
   verified BOOLEAN DEFAULT TRUE,
   theme TEXT DEFAULT 'cyber-dark',
   primary_color TEXT DEFAULT '#ef4444',
@@ -86,7 +86,7 @@ VALUES (
   'Arun Roshan',
   'RoshZen ⚡',
   'Developer • CSE Student • Builder • Tech Enthusiast',
-  'https://github.com/roshzxn1003.png',
+  'https://github.com/roshzxn.png',
   true,
   'cyber-dark',
   '#ef4444'
@@ -95,7 +95,7 @@ VALUES (
 INSERT INTO public.links (title, description, url, icon, platform, position, is_active, color)
 VALUES 
   ('Portfolio Website', 'Explore my main personal portfolio & interactive projects', 'https://www.roshzen.in', 'Globe', 'web', 1, true, '#ef4444'),
-  ('GitHub Repositories', 'Open source code, tools, and developer experiments', 'https://github.com/roshzxn1003', 'Github', 'github', 2, true, '#f8fafc'),
+  ('GitHub Repositories', 'Open source code, tools, and developer experiments', 'https://github.com/roshzxn', 'Github', 'github', 2, true, '#f8fafc'),
   ('LinkedIn Network', 'Connect with me professionally & read my updates', 'https://www.linkedin.com/in/arun-roshan-gj/', 'Linkedin', 'linkedin', 3, true, '#38bdf8'),
   ('YouTube Channel', 'Coding tutorials, tech walkthroughs & project demos', 'https://www.youtube.com/@roshzxn', 'Youtube', 'youtube', 4, true, '#f43f5e'),
   ('Instagram', 'Behind the scenes, dev setup, and daily tech life', 'https://instagram.com/rosh.zxn', 'Instagram', 'instagram', 5, true, '#ec4899'),

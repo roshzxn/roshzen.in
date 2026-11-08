@@ -1,11 +1,78 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import * as Icons from 'lucide-react'
+import {
+  ArrowUpRight,
+  Award,
+  BookOpen,
+  Bookmark,
+  BriefcaseBusiness,
+  Camera,
+  Check,
+  CirclePlay,
+  Code,
+  Copy,
+  ExternalLink,
+  FileText,
+  Folder,
+  GitBranch,
+  Globe,
+  Heart,
+  Laptop,
+  Mail,
+  MapPin,
+  Music,
+  Phone,
+  Send,
+  Share2,
+  Shield,
+  Sparkles,
+  Star,
+  Terminal,
+  Video,
+} from 'lucide-react'
+
+const ICON_MAP = {
+  arrowupright: ArrowUpRight,
+  award: Award,
+  bookopen: BookOpen,
+  bookmark: Bookmark,
+  briefcase: BriefcaseBusiness,
+  briefcasebusiness: BriefcaseBusiness,
+  camera: Camera,
+  check: Check,
+  circleplay: CirclePlay,
+  code: Code,
+  copy: Copy,
+  externallink: ExternalLink,
+  filetext: FileText,
+  folder: Folder,
+  gitbranch: GitBranch,
+  github: GitBranch,
+  globe: Globe,
+  heart: Heart,
+  instagram: Camera,
+  laptop: Laptop,
+  linkedin: BriefcaseBusiness,
+  mail: Mail,
+  mappin: MapPin,
+  music: Music,
+  phone: Phone,
+  send: Send,
+  share2: Share2,
+  shield: Shield,
+  sparkles: Sparkles,
+  star: Star,
+  terminal: Terminal,
+  twitter: Send,
+  video: Video,
+  youtube: CirclePlay,
+}
 
 export default function LinkCard({ link, index, onLinkClick }) {
   const [copied, setCopied] = useState(false)
 
-  const IconComponent = Icons[link.iconName] || Icons.ExternalLink
+  const normalized = (link.iconName || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+  const IconComponent = ICON_MAP[normalized] || ExternalLink
   const brandColor = link.color || '#ef4444'
 
   const handleCopy = (e) => {
@@ -74,13 +141,13 @@ export default function LinkCard({ link, index, onLinkClick }) {
           className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition opacity-70 group-hover:opacity-100"
         >
           {copied ? (
-            <Icons.Check className="w-4 h-4 text-emerald-400" />
+            <Check className="w-4 h-4 text-emerald-400" />
           ) : (
-            <Icons.Copy className="w-4 h-4" />
+            <Copy className="w-4 h-4" />
           )}
         </button>
         <div className="p-2 text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition duration-300">
-          <Icons.ArrowUpRight className="w-5 h-5" />
+          <ArrowUpRight className="w-5 h-5" />
         </div>
       </div>
     </motion.a>

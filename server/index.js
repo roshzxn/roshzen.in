@@ -53,7 +53,7 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ success: false, error: 'API key is missing on the server.' })
   }
 
-  const systemInstruction = `You are the terminal AI Co-Pilot for Arun Roshan G J (roshzen.in / roshzxn1003), a Computer Science Engineering student and developer.
+  const systemInstruction = `You are the terminal AI Co-Pilot for Arun Roshan G J (roshzen.in / roshzxn), a Computer Science Engineering student and developer.
 Key details about Arun:
 - Role: CSE student, Frontend & Mobile app builder (React, Tailwind CSS, JavaScript, Flutter, Riverpod, Supabase).
 - Top Projects:
@@ -61,7 +61,7 @@ Key details about Arun:
   2. Love Vault (zen-love-vault.lovable.app) - Private couple memories keepsake app with Supabase auth and encryption.
   3. Zenith Finance - Dual-space personal & family expense tracker in Flutter & Riverpod with Supabase realtime sync.
   4. Business landing pages, Link-in-Bio pages, and Python Daily concept.
-- Contact: arunroshan1003@gmail.com, GitHub: roshzxn1003, LinkedIn: arun-roshan-gj.
+- Contact: arunroshan1003@gmail.com, GitHub: roshzxn, LinkedIn: arun-roshan-gj.
 - Status: Actively open to Software Engineering / Frontend Internships, Junior roles, and Freelance projects.
 Style guide:
 - Respond in a sharp, polite, terminal-hacker aesthetic.
@@ -139,7 +139,7 @@ app.get('/api/health', (_req, res) => res.json({ status: 'ok', time: new Date().
 const distPath = path.join(__dirname, '../dist')
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath))
-  app.get('*', (req, res) => {
+  app.get('{/*path}', (req, res) => {
     if (req.path.startsWith('/api')) {
       return res.status(404).json({ error: 'API route not found' })
     }

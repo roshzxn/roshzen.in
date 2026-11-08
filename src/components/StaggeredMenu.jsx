@@ -9,16 +9,16 @@ export const StaggeredMenu = ({
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = true,
-  className,
-  logoUrl,
+  className = '',
+  logoUrl = '',
   menuButtonColor = '#fff',
   openMenuButtonColor = '#fff',
   accentColor = '#ef4444',
   changeMenuColorOnOpen = true,
   isFixed = false,
   closeOnClickAway = true,
-  onMenuOpen,
-  onMenuClose
+  onMenuOpen = undefined,
+  onMenuClose = undefined
 }) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);

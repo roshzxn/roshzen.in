@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { soundFX } from './sound'
 
 // 1. TIC TAC TOE GAME
 export function TicTacToeGame({ onReturnToPrompt }) {
@@ -880,10 +881,407 @@ export function DeveloperQuizGame({ initialCategory = 'all' }) {
   )
 }
 
+// 7. TERMINAL TYPING SPEED CHALLENGE
+const TYPING_PARAGRAPHS = [
+  {
+    id: 'cyberpunk',
+    topic: 'Hacker Ethic & Cyberpunk',
+    level: 'Intermediate',
+    text: 'We exist without skin color, nationality, or religious bias. We explore systems, dismantle boundaries, and seek truth in logic. You build walls, control networks, and weaponize data, yet label curious minds as criminals. We believe access to computers and anything that might teach you about the way the world works should be unlimited and total. Mistrust authority and promote decentralization. Yes, I am a hacker, and this is our playground.',
+  },
+  {
+    id: 'cleancode',
+    topic: 'Clean Architecture & Craftsmanship',
+    level: 'Advanced',
+    text: 'Clean code is not written by strictly obeying dogmatic rules; it is crafted with empathy for the engineers who will read and maintain it tomorrow. Any developer can write code that a compiler understands, but exceptional engineers write code that humans can understand. Keep abstractions intuitive, decouple dependencies, honor modular boundaries, and design resilient systems that gracefully absorb change.',
+  },
+  {
+    id: 'systems',
+    topic: 'Distributed Systems & Resilience',
+    level: 'Hard',
+    text: 'Building distributed systems requires embracing failure as a routine operational reality rather than an anomaly. Networks partition, nodes crash, and latency fluctuates unpredictably across availability zones. Through idempotent messaging, distributed consensus protocols, eventual consistency models, and circuit breakers, we construct resilient backbones that power global scale applications.',
+  },
+  {
+    id: 'algorithms',
+    topic: 'Algorithms & Cognitive Computing',
+    level: 'Expert',
+    text: 'Computing transforms pure mathematical abstractions into living, responsive intelligence. From graph traversals and dynamic programming to deep neural networks and self-attention mechanisms, software gives structure to thought. Every optimized memory allocation, parallelized vector operation, and low-latency cache hit compounds into the seamless digital reality humanity experiences every second.',
+  },
+]
+
+export function TypingSpeedGame({ onReturnToPrompt }) {
+  const [selectedParaIndex, setSelectedParaIndex] = useState(0)
+  const currentParagraph = TYPING_PARAGRAPHS[selectedParaIndex]
+  const targetText = currentParagraph.text
+
+  const [typedText, setTypedText] = useState('')
+  const [startTime, setStartTime] = useState(null)
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const [mistakeCount, setMistakeCount] = useState(0)
+  const [totalKeystrokes, setTotalKeystrokes] = useState(0)
+  const [streak, setStreak] = useState(0)
+  const [maxStreak, setMaxStreak] = useState(0)
+
+  const inputAreaRef = useRef(null)
+
+  // Auto-focus input on mount or restart
+  useEffect(() => {
+    inputAreaRef.current?.focus()
+  }, [selectedParaIndex, isCompleted])
+
+  // Timer interval while typing
+  useEffect(() => {
+    if (!startTime || isCompleted) return
+
+    const interval = setInterval(() => {
+      setElapsedSeconds(Math.max(1, Math.floor((Date.now() - startTime) / 1000)))
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [startTime, isCompleted])
+
+  // Calculate live metrics
+  const correctCount = typedText.split('').filter((char, i) => char === targetText[i]).length
+  const currentErrors = typedText.split('').filter((char, i) => char !== targetText[i]).length
+  const effectiveTimeMinutes = Math.max(1, elapsedSeconds) / 60
+  const liveWpm = startTime ? Math.round((correctCount / 5) / effectiveTimeMinutes) : 0
+  const liveAccuracy = totalKeystrokes > 0 ? Math.max(0, Math.round(((totalKeystrokes - mistakeCount) / totalKeystrokes) * 100)) : 100
+  const progressPercent = Math.min(100, Math.round((typedText.length / targetText.length) * 100))
+  const finalScore = Math.round(liveWpm * (liveAccuracy / 100) * 10)
+
+  const getRank = (score, wpm) => {
+    if (wpm >= 90 || score >= 850) {
+      return { title: '👑 Neural Net God', badge: 'border-yellow-400 bg-yellow-500/20 text-yellow-300 shadow-[0_0_15px_rgba(234,179,8,0.3)]' }
+    }
+    if (wpm >= 70 || score >= 650) {
+      return { title: '⚡ Kernel Architect', badge: 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.3)]' }
+    }
+    if (wpm >= 50 || score >= 450) {
+      return { title: '🚀 Senior Code Ninja', badge: 'border-emerald-400 bg-emerald-500/20 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.3)]' }
+    }
+    if (wpm >= 35 || score >= 300) {
+      return { title: '💻 Terminal Artisan', badge: 'border-blue-400 bg-blue-500/20 text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.3)]' }
+    }
+    return { title: '🌱 Code Apprentice', badge: 'border-slate-500 bg-slate-500/20 text-slate-300' }
+  }
+
+  const handleRestart = useCallback(() => {
+    setTypedText('')
+    setStartTime(null)
+    setElapsedSeconds(0)
+    setIsCompleted(false)
+    setMistakeCount(0)
+    setTotalKeystrokes(0)
+    setStreak(0)
+    setMaxStreak(0)
+    inputAreaRef.current?.focus()
+  }, [])
+
+  const handleSelectParagraph = (index) => {
+    setSelectedParaIndex(index)
+    setTypedText('')
+    setStartTime(null)
+    setElapsedSeconds(0)
+    setIsCompleted(false)
+    setMistakeCount(0)
+    setTotalKeystrokes(0)
+    setStreak(0)
+    setMaxStreak(0)
+    inputAreaRef.current?.focus()
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      onReturnToPrompt?.(true)
+      return
+    }
+
+    if (isCompleted) {
+      if (e.key === 'Enter') handleRestart()
+      return
+    }
+
+    // Start timer on first keystroke
+    if (!startTime) {
+      setStartTime(Date.now())
+    }
+
+    // Backspace handling
+    if (e.key === 'Backspace') {
+      e.preventDefault()
+      if (typedText.length > 0) {
+        setTypedText((prev) => prev.slice(0, -1))
+        setStreak(0)
+        soundFX.playTyping()
+      }
+      return
+    }
+
+    // Single character input
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault()
+      if (typedText.length >= targetText.length) return
+
+      const nextChar = e.key
+      const expectedChar = targetText[typedText.length]
+      const isCorrect = nextChar === expectedChar
+
+      setTotalKeystrokes((prev) => prev + 1)
+
+      if (isCorrect) {
+        setStreak((prev) => {
+          const nextStreak = prev + 1
+          setMaxStreak((m) => Math.max(m, nextStreak))
+          return nextStreak
+        })
+        soundFX.playTyping()
+      } else {
+        setMistakeCount((prev) => prev + 1)
+        setStreak(0)
+        soundFX.playError()
+      }
+
+      const nextTyped = typedText + nextChar
+      setTypedText(nextTyped)
+
+      // Check completion
+      if (nextTyped.length === targetText.length) {
+        setIsCompleted(true)
+        soundFX.playSuccess()
+      }
+    }
+  }
+
+  return (
+    <div
+      tabIndex={0}
+      ref={inputAreaRef}
+      onKeyDown={handleKeyDown}
+      onClick={() => inputAreaRef.current?.focus()}
+      className="developer-terminal-game my-3 p-4 sm:p-5 rounded-2xl bg-[#08090e]/95 border border-red-500/25 shadow-[0_4px_30px_rgba(0,0,0,0.6)] outline-none focus:border-red-400/50 transition-all font-mono select-none"
+    >
+      {/* Top Header Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-red-500/20 pb-3 mb-4">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-bold text-xs sm:text-sm text-white tracking-wider">
+            ⌨️ ROSHZEN TERMINAL TYPER v2.0
+          </span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full border border-red-400/30 bg-red-500/10 text-red-300">
+            {currentParagraph.level}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {onReturnToPrompt && (
+            <button
+              type="button"
+              onClick={() => onReturnToPrompt(true)}
+              className="px-2.5 py-1 text-[11px] rounded-lg border border-red-500/30 bg-red-500/10 text-red-200 hover:bg-red-500 hover:text-white transition cursor-pointer"
+            >
+              Exit (Esc)
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Paragraph Difficulty Selector */}
+      <div className="flex flex-wrap gap-1.5 mb-4 text-[11px]">
+        {TYPING_PARAGRAPHS.map((p, idx) => (
+          <button
+            key={p.id}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleSelectParagraph(idx)
+            }}
+            className={`px-3 py-1.5 rounded-lg border transition cursor-pointer ${
+              selectedParaIndex === idx
+                ? 'bg-red-500 border-red-400 text-white font-bold shadow-[0_0_12px_rgba(var(--portfolio-accent-glow-rgb,239,68,68),0.4)]'
+                : 'border-white/10 bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/[0.07]'
+            }`}
+          >
+            {idx + 1}. {p.topic}
+          </button>
+        ))}
+      </div>
+
+      {/* Real-Time Live HUD Metrics */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4 text-center">
+        <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-2.5">
+          <div className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider">Speed</div>
+          <div className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5">
+            {liveWpm} <span className="text-xs font-normal text-emerald-300/80">WPM</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-2.5">
+          <div className="text-[10px] text-cyan-300 font-bold uppercase tracking-wider">Accuracy</div>
+          <div className="text-xl sm:text-2xl font-black text-cyan-400 mt-0.5">
+            {liveAccuracy}<span className="text-xs font-normal text-cyan-300/80">%</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-2.5">
+          <div className="text-[10px] text-amber-300 font-bold uppercase tracking-wider">Time</div>
+          <div className="text-xl sm:text-2xl font-black text-amber-400 mt-0.5">
+            {Math.floor(elapsedSeconds / 60)}:{(elapsedSeconds % 60).toString().padStart(2, '0')}s
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-red-500/25 bg-red-500/10 p-2.5">
+          <div className="text-[10px] text-red-300 font-bold uppercase tracking-wider">Score / Streak</div>
+          <div className="text-xl sm:text-2xl font-black text-white mt-0.5">
+            {finalScore} <span className="text-xs font-normal text-red-300/80">({streak}🔥)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Progress Bar */}
+      <div className="mb-4">
+        <div className="flex justify-between text-[11px] text-slate-400 mb-1">
+          <span>Progress: {progressPercent}%</span>
+          <span>
+            {typedText.length} / {targetText.length} chars ({currentErrors > 0 ? `${currentErrors} mistakes` : '0 errors'})
+          </span>
+        </div>
+        <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-red-500 via-amber-400 to-emerald-400 transition-all duration-150"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Long Paragraph Typing Surface */}
+      {!isCompleted ? (
+        <div className="relative p-4 sm:p-5 rounded-xl border border-white/10 bg-black/50 text-sm sm:text-base leading-relaxed tracking-wide min-h-[160px] break-words whitespace-pre-wrap">
+          {targetText.split('').map((targetChar, index) => {
+            const isTyped = index < typedText.length
+            const isCurrent = index === typedText.length
+            const userChar = typedText[index]
+            const isCorrect = userChar === targetChar
+
+            if (isCurrent) {
+              return (
+                <span
+                  key={index}
+                  className="relative inline-block bg-red-500 text-black font-black px-0.5 rounded shadow-[0_0_12px_rgba(239,68,68,0.9)] animate-pulse"
+                >
+                  {targetChar === ' ' ? '␣' : targetChar}
+                </span>
+              )
+            }
+
+            if (isTyped) {
+              return (
+                <span
+                  key={index}
+                  className={
+                    isCorrect
+                      ? 'text-emerald-400 font-medium'
+                      : 'bg-red-500/30 text-red-300 font-bold underline decoration-red-400'
+                  }
+                >
+                  {targetChar}
+                </span>
+              )
+            }
+
+            return (
+              <span key={index} className="text-slate-500 opacity-80">
+                {targetChar}
+              </span>
+            )
+          })}
+
+          {!startTime && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px] rounded-xl cursor-pointer">
+              <div className="text-center px-4 py-2 rounded-xl border border-red-400/40 bg-red-500/20 text-white font-bold text-xs sm:text-sm animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                ⚡ Click here or start typing to begin challenge!
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Completion Summary Dashboard */
+        <div className="p-5 sm:p-6 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-center animate-fade-in">
+          <div className="text-3xl mb-2">🎉</div>
+          <h3 className="text-xl sm:text-2xl font-black text-white">Challenge Completed!</h3>
+          <p className="text-xs text-slate-300 mt-1 mb-4">
+            Finished "{currentParagraph.topic}" in {elapsedSeconds} seconds.
+          </p>
+
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-bold mb-5">
+            <span className={`px-3 py-1 rounded-full border text-xs font-bold ${getRank(finalScore, liveWpm).badge}`}>
+              {getRank(finalScore, liveWpm).title}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto mb-6 text-left">
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
+              <span className="text-[10px] text-slate-400 uppercase block">Net Speed</span>
+              <span className="text-lg font-bold text-emerald-400">{liveWpm} WPM</span>
+            </div>
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
+              <span className="text-[10px] text-slate-400 uppercase block">Accuracy</span>
+              <span className="text-lg font-bold text-cyan-400">{liveAccuracy}%</span>
+            </div>
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
+              <span className="text-[10px] text-slate-400 uppercase block">Total Mistakes</span>
+              <span className="text-lg font-bold text-red-400">{mistakeCount}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
+              <span className="text-[10px] text-slate-400 uppercase block">Total Score</span>
+              <span className="text-lg font-bold text-amber-400">{finalScore} pts</span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              type="button"
+              onClick={handleRestart}
+              className="px-4 py-2 rounded-xl bg-red-500 text-white font-bold text-xs hover:bg-red-600 transition cursor-pointer shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+            >
+              🔄 Retry Paragraph
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSelectParagraph((selectedParaIndex + 1) % TYPING_PARAGRAPHS.length)}
+              className="px-4 py-2 rounded-xl border border-white/20 bg-white/10 text-white font-bold text-xs hover:bg-white/20 transition cursor-pointer"
+            >
+              ➡️ Next Challenge
+            </button>
+            {onReturnToPrompt && (
+              <button
+                type="button"
+                onClick={() => onReturnToPrompt(true)}
+                className="px-4 py-2 rounded-xl border border-red-500/30 text-red-300 font-bold text-xs hover:bg-red-500/20 transition cursor-pointer"
+              >
+                Exit to Prompt
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Footer Instructions */}
+      <div className="mt-3 flex flex-wrap items-center justify-between text-[11px] text-slate-500 border-t border-white/5 pt-2">
+        <span>Backspace: Erase typo • Escape: Exit game</span>
+        <span>Max Streak: {maxStreak} chars</span>
+      </div>
+    </div>
+  )
+}
+
 export function TerminalGames({ game, onReturnToPrompt }) {
   if (game && game.startsWith('quiz')) {
     const category = game.split(':')[1] || 'all'
     return <DeveloperQuizGame initialCategory={category} onReturnToPrompt={onReturnToPrompt} />
+  }
+  if (game === 'type' || game === 'typing' || game === 'typer' || game === 'typespeed') {
+    return <TypingSpeedGame onReturnToPrompt={onReturnToPrompt} />
   }
   if (game === 'tictactoe') return <TicTacToeGame onReturnToPrompt={onReturnToPrompt} />
   if (game === 'snake') return <SnakeGame onReturnToPrompt={onReturnToPrompt} />
