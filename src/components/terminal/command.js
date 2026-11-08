@@ -486,7 +486,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       (p) =>
         p.title.toLowerCase().includes(query) ||
         p.idea.toLowerCase().includes(query) ||
-        p.tech.some((t) => t.toLowerCase().includes(query))
+        (p.stack || p.tech || []).some((t) => t.toLowerCase().includes(query))
     )
     if (matched.length === 0) {
       return [makeOutput('warning', `No projects found matching "${query}".`)]
@@ -495,7 +495,7 @@ export const executeCommand = (rawCommand, context = {}) => {
       makeOutput('success', `Found ${matched.length} matching project(s):`),
       makeOutput(
         'list',
-        matched.map((p) => `• ${p.title} - ${p.idea} [Tech: ${p.tech.join(', ')}]`)
+        matched.map((p) => `• ${p.title} - ${p.idea} [Tech: ${(p.stack || p.tech || []).join(', ')}]`)
       ),
     ]
   }
@@ -515,16 +515,25 @@ export const executeCommand = (rawCommand, context = {}) => {
 
     if (!found) return [makeOutput('error', `Project "${target}" not found.`)]
 
-    return [
-      makeOutput('output', [
-        `📌 Title: ${found.title}`,
-        `💡 Description: ${found.idea}`,
-        `🛠 Tech Stack: ${found.tech.join(', ')}`,
-        `⚡ Status: Completed / Live`,
-        `🔗 GitHub: ${profile.github}`,
-        `🚀 Live Demo: ${found.live || 'https://roshzen.in'}`,
-      ]),
+    const techList = (found.stack || found.tech || []).join(', ')
+    const outputLines = [
+      `📌 Title: ${found.title} [${found.category || 'Software Project'}]`,
+      `💡 Concept: ${found.idea}`,
+      `🛠 Tech Stack: ${techList}`,
     ]
+    if (found.architecture?.designPattern) {
+      outputLines.push(`🏗 Architecture: ${found.architecture.designPattern}`)
+    }
+    if (found.features && found.features.length > 0) {
+      outputLines.push(`✨ Highlights: ${found.features.join(' • ')}`)
+    }
+    if (found.architecture?.metrics && found.architecture.metrics.length > 0) {
+      outputLines.push(`📊 Metrics: ${found.architecture.metrics.map((m) => `${m.label}: ${m.value}`).join(' | ')}`)
+    }
+    outputLines.push(`🔗 GitHub: ${found.github || profile.github}`)
+    outputLines.push(`🚀 Live Demo: ${found.live || (found.github ? 'Repo available' : 'In active development')}`)
+
+    return [makeOutput('output', outputLines)]
   }
 
   // 5. SKILL VIEWER (Requirement #11)

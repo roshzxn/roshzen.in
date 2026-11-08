@@ -21,17 +21,43 @@ export interface Principle {
   icon: LucideIcon
 }
 
+export interface ProjectLayer {
+  name: string
+  role: string
+  description: string
+  technologies: string[]
+}
+
+export interface ProjectMetric {
+  label: string
+  value: string
+  description?: string
+}
+
+export interface ProjectArchitecture {
+  summary: string
+  designPattern?: string
+  layers: ProjectLayer[]
+  keyChallenges: {
+    challenge: string
+    solution: string
+  }[]
+  metrics?: ProjectMetric[]
+}
+
 export interface Project {
   id?: string | number
   title: string
   idea: string
+  tagline?: string
   stack: string[]
   features: string[]
   github?: string
   live?: string
   is_active?: boolean
-  category?: 'Web App' | 'Frontend' | 'Tool' | 'Full Stack' | 'Learning'
+  category?: 'Web App' | 'Frontend' | 'Tool' | 'Full Stack' | 'Learning' | 'Mobile App' | 'EdTech'
   featured?: boolean
+  architecture?: ProjectArchitecture
 }
 
 export interface Certificate {

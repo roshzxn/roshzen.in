@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
-import { ArrowUpRight, GitBranch, LockKeyhole, Search, Sparkles } from 'lucide-react'
+import { ArrowUpRight, GitBranch, LockKeyhole, Search, Sparkles, Layers } from 'lucide-react'
 import Reveal from './Reveal'
 import SectionHeader from './SectionHeader'
+import ProjectModal from './ProjectModal'
 import type { Project } from '../types/portfolio'
 
 interface ProjectActionProps {
@@ -43,6 +44,7 @@ interface ProjectsProps {
 function Projects({ projects }: ProjectsProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState('ALL')
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   // Extract all unique tech tags from projects
   const allTags = useMemo(() => {
@@ -183,9 +185,15 @@ function Projects({ projects }: ProjectsProps) {
                       {project.title}
                     </h3>
                   </div>
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-red-500/10 text-red-300 transition duration-300 group-hover:bg-red-500 group-hover:text-white group-hover:scale-105 shadow-[0_0_20px_rgba(var(--portfolio-accent-glow-rgb,220,38,38),0.15)]">
-                    <ArrowUpRight size={20} />
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(project)}
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-red-500/10 text-red-300 transition duration-300 hover:bg-red-500 hover:text-white hover:scale-110 shadow-[0_0_20px_rgba(var(--portfolio-accent-glow-rgb,220,38,38),0.15)] cursor-pointer"
+                    title={`View ${project.title} Architecture & Deep-Dive`}
+                    aria-label={`Open ${project.title} case study`}
+                  >
+                    <Layers size={19} />
+                  </button>
                 </div>
 
                 <p className="mt-4 leading-7 text-slate-300 text-sm sm:text-base flex-1">{project.idea}</p>
@@ -222,7 +230,16 @@ function Projects({ projects }: ProjectsProps) {
                   </div>
                 )}
 
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-red-400/15 pt-5">
+                <div className="mt-6 flex flex-wrap items-center gap-2.5 border-t border-red-400/15 pt-5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(project)}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-red-400/30 bg-black/50 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white transition duration-200 hover:bg-red-500/20 hover:border-red-400/60 hover:text-white cursor-pointer shadow-sm"
+                  >
+                    <Layers size={14} className="text-red-400" />
+                    <span>Deep-Dive</span>
+                  </button>
+
                   <ProjectAction href={project.github} icon={GitBranch}>
                     GitHub
                   </ProjectAction>
@@ -235,6 +252,12 @@ function Projects({ projects }: ProjectsProps) {
           ))}
         </div>
       )}
+
+      {/* Interactive System Architecture & Case Study Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   )
 }
